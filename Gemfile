@@ -4,3 +4,7 @@ gem "sinatra"
 
 gem "haml"
 gem "sass"
+
+gem "faraday"
+gem "faraday_middleware"
+gem "hashie"
