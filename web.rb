@@ -1,4 +1,5 @@
 require "sinatra"
+require "tilt/haml"
 
 get "/" do
   "Hello, world"
