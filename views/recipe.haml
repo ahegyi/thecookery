@@ -29,8 +29,7 @@
 
         .col-sm-12.col-md-9
           %button.btn.btn-default.start-cooking{style: "margin-bottom: 10px;"} Let's Cook!
-          %p.hide.help
-            When you're ready to continue, tap the next section.
+          %button.btn.btn-default.start-over{style: "margin-bottom: 10px; display: none;"} Reset View
           %dl.steps
             - @recipe_steps.each do |steps|
               .step

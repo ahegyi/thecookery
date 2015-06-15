@@ -1,12 +1,14 @@
 $(document).ready(function() {
   var steps = $(".step");
-  var btnEl = $(".start-cooking");
+  var btnEl = $("button.start-cooking");
+  var resetEl = $("button.start-over");
   var currentStep = -1;
 
   steps.on("click", function() {
     currentStep = steps.index(this);
     toggleStep(steps, currentStep);
     checkButtonText(steps, currentStep, btnEl);
+    resetEl.show();
   });
 
   btnEl.on("click", function() {
@@ -17,7 +19,18 @@ $(document).ready(function() {
 
     if (currentStep >= steps.length) {
       currentStep = -1;
+      resetEl.hide();
     }
+    else {
+      resetEl.show();
+    }
+  });
+
+  resetEl.on("click", function() {
+    currentStep = -1;
+    checkButtonText(steps, currentStep, btnEl);
+    steps.removeClass("current");
+    resetEl.hide();
   });
 });
 
