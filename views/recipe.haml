@@ -20,15 +20,19 @@
               = @recipe.description
       .row
         .col-md-3.col-sm-12.col-xs-12
-          %h4.block-header
+          %strong
             Ingredients
           %ul.ingredients
             - @recipe.ingredients.each do |ing|
               %li= ing.ingredient
         .col-sm-12.col-md-9
-          %dl.dl-horizontal
+          %dl.steps
             - @recipe.action_steps.each do |steps|
-              %dt= steps.first
-              %dd= steps.last.split(". ").join(".<br />")
+              .step
+                %dt= steps.first
+                %dd= steps.last
+                - # .split(". ").join(".<br />")
 
+  %script{ src: "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" }
+  %script{ src: "/js/js.js" }
 
