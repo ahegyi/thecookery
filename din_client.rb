@@ -46,6 +46,20 @@ class Recipe
       [matches[1], matches[3]]
     end
   end
+
+  def action_steps_with_timers(ordered: true)
+    # either N minutes, N-M minutes, N to M minutes, N more minutes
+    # or maybe N mins or M minute
+    minute_matcher = /(\d+|\d+\D{1,4}\d+)(\s+more)?\s+min(ute)?s*/
+
+    action_steps(ordered: ordered).map do |step|
+      step[1].gsub!(
+        minute_matcher,
+        '<strong class="timer" data-minutes="\1">\0</strong>'
+      )
+      step
+    end
+  end
 end
 
 class DinClient
