@@ -1,11 +1,13 @@
 require "sinatra"
 require "tilt/haml"
+require "./din_client"
 
 get "/" do
-  "Hello, world"
+  "<a href=\"recipes/109751\">Rabbit</a>"
 end
 
 get "/recipes/:id" do
-  @id = params["id"]
+  @recipe = Recipe.new(params["id"])
+
   haml :recipe, format: :html5
 end
