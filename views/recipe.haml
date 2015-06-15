@@ -6,9 +6,29 @@
     %meta{ name: "viewport", content: "width=device-width, initial-scale=1" }
 
     %title
-      A Recipe
+      = @recipe.name
 
     %link{ rel: "stylesheet", type: "text/css", href: "/stylesheets/bootstrap.min.css" }
     %link{ rel: "stylesheet", type: "text/css", href: "/stylesheets/styles.css" }
   %body
-    %h1= @recipe.name
+    .container-fluid{style: "max-width: 1200px;"}
+      .row
+        .col-sm-12
+          %h1
+            = @recipe.name
+            %small
+              = @recipe.description
+      .row
+        .col-md-3.col-sm-12.col-xs-12
+          %h4.block-header
+            Ingredients
+          %ul.ingredients
+            - @recipe.ingredients.each do |ing|
+              %li= ing.ingredient
+        .col-sm-12.col-md-9
+          %dl.dl-horizontal
+            - @recipe.action_steps.each do |steps|
+              %dt= steps.first
+              %dd= steps.last.split(". ").join(".<br />")
+
+

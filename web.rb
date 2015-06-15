@@ -3,7 +3,10 @@ require "tilt/haml"
 require "./din_client"
 
 get "/" do
-  "<a href=\"recipes/109751\">Rabbit</a>"
+  recipes = [109771, 109761, 109751]
+  recipes.map do |r|
+    "<a href=\"recipes/#{r}\">Recipe #{r}</a>"
+  end.join("<br />")
 end
 
 get "/recipes/:id" do

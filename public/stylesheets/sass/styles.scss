@@ -1,6 +1,48 @@
-$hot-pink: #FF4ED6;
+// $hot-pink: #FF4ED6;
 
-body {
-  background: #fff;
-  color: $hot-pink;
+h1 small {
+  line-height: 1.4;
+  display: block;
+  margin: 20px 0;
+  font-size: 50%;
+}
+
+.block-header {
+  margin-top: 0;
+}
+
+.ingredients {
+  padding: 0;
+
+  li {
+    list-style-type: none;
+    margin: 5px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+  }
+
+  @media(max-width: 991px) {
+    margin-left: 0;
+    margin-bottom: 20px;
+
+    li {
+      display: inline-block;
+      margin: 0;
+
+      &:after {
+        content: "⋅";
+        display: inline-block;
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
+// override bootstrap
+@media (min-width: 768px) {
+  .dl-horizontal dt {
+    overflow: initial;
+    text-overflow: initial;
+    white-space: normal;
+  }
 }
