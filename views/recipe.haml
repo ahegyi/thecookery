@@ -18,6 +18,7 @@
             = @recipe.name
             %small
               = @recipe.description
+
       .row
         .col-md-3.col-sm-12.col-xs-12
           %strong
@@ -25,9 +26,13 @@
           %ul.ingredients
             - @recipe.ingredients.each do |ing|
               %li= ing.ingredient
+
         .col-sm-12.col-md-9
+          %button.btn.btn-default.start-cooking{style: "margin-bottom: 10px;"} Let's Cook!
+          %p.hide.help
+            When you're ready to continue, tap the next section.
           %dl.steps
-            - @recipe.action_steps.each do |steps|
+            - @recipe_steps.each do |steps|
               .step
                 %dt= steps.first
                 %dd= steps.last

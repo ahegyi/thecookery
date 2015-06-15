@@ -41,6 +41,11 @@ h1 small {
   &.current {
     border-top-color: #000;
     font-size: 150%;
+
+    // only highlight timers when in current step
+    .timer {
+      background-color: yellow;
+    }
   }
 }
   }
