@@ -4,7 +4,9 @@ require "./din_client"
 
 get "/" do
   recipes = [109771, 109761, 109751]
-  recipes.map do |r|
+  text = "<h1>Pick a recipe!</h1>" +
+         "<p>These are the ones we know.</p>"
+  text += recipes.map do |r|
     "<a href=\"recipes/#{r}\">Recipe #{r}</a>"
   end.join("<br />")
 end

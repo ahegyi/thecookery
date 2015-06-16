@@ -3,39 +3,63 @@ var ProgressTimer;
 ProgressTimer = (function() {
   var progressHtml;
 
-  progressHtml = '<div class="progress-timer" style="display: none; margin-top: 10px;">' + '<p class="timing badge"></p>' + '<div class="progress">' + '<div class="progress-bar" role="progressbar" style="min-width: 5%;">' + '</div></div></div>';
+  progressHtml = '<div class="progress-timer" style="display: none; margin-top: 10px;">' +
+                 '<p class="timing badge"></p>' +
+                 '<div class="progress animated">' +
+                 '<div class="progress-bar progress-bar-success" role="progressbar" style="min-width: 5%;">' +
+                 '</div></div></div>';
 
   function ProgressTimer(timerHighlight) {
+    self = this;
+
     var milliSeconds, progressTimer;
+
+    // get actual timed length in minutes and ms
     this.timerHighlight = timerHighlight;
-    progressTimer = $(progressHtml);
-    progressTimer.find('.timing').text(this.timerHighlight.text());
-    progressTimer.appendTo(this.timerHighlight.closest('.step'));
-    progressTimer.show();
-    this.minutes = parseInt(this.timerHighlight.data('minutes'), 10);
+    this.minutes = parseInt(this.timerHighlight.data("minutes"), 10);
     milliSeconds = this.minutes * 60 * 1000;
+
+    // set up our tock
     this.timer = new Tock({
       countdown: true,
+      // in ms
       interval: 1000,
+      // every interval, run callback
       callback: function() {
         var currentTime, newWidth;
-        currentTime = this.msToTime(this.lap());
-        progressTimer.find('.progress-bar').text(currentTime);
+        currentTime = self.prettyPrint(this.msToTime(this.lap()));
         newWidth = (milliSeconds - this.lap()) / milliSeconds;
-        progressTimer.find('.progress-bar').css('width', newWidth * 100 + '%');
+        // update our current time text and progress bar length
+        progressTimer.find(".progress-bar").text(currentTime);
+        progressTimer.find(".progress-bar").css("width", newWidth * 100 + "%");
       },
+      // runs when done
       complete: function() {
-        return console.log('timer is done');
+        progressTimer.find(".progress-bar").text("Done!");
+        progressTimer.find(".progress").addClass("jello");
+        progressTimer.find(".progress-bar").css("background-color", "#B8B8B8");
+        progressTimer.find("button.pause, button.reset").remove();
       }
     });
+
+    // add timer with minute count badge to DOM
+    progressTimer = $(progressHtml);
+    progressTimer.find(".timing").text(this.timerHighlight.text());
+    progressTimer.appendTo(this.timerHighlight.closest(".step"));
+    progressTimer.show();
   }
 
+  ProgressTimer.prototype.prettyPrint = function(timeStr) {
+    var matches = timeStr.match(/0?(\d+):(\d+)\.\d+/);
+    var prettified = matches[1] + "m" + matches[2] + "s";
+    return prettified;
+  };
+
   ProgressTimer.prototype.start = function() {
-    return this.timer.start(this.minutes + ':00');
+    return this.timer.start(this.minutes + ":00");
   };
 
   return ProgressTimer;
-
 })();
 
 
@@ -80,9 +104,8 @@ $(document).ready(function() {
     if (!$(this).closest(".step").hasClass("current")) {
       return true;
     }
-
-    var p = new ProgressTimer($(this));
-    p.start();
+    // start our timer
+    new ProgressTimer($(this)).start();
   });
 });
 

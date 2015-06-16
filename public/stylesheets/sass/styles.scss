@@ -44,6 +44,7 @@ h1 small {
 
     // only highlight timers when in current step
     .timer {
+      cursor: pointer;
       background-color: yellow;
     }
   }
